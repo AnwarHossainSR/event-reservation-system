@@ -28,11 +28,9 @@
 
 ## About The Project
 
-
 # Express API Boilerplate
 
 This project is a boilerplate for creating RESTful APIs using **Node.js**, **Express**, and **TypeScript**. It is designed to help you quickly set up a solid foundation for your API development, with a focus on best practices and maintainability.
-
 
 ### Built With
 
@@ -55,33 +53,37 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 ## Features
 
-- **Express 4.18.2**: A fast, unopinionated, minimalist web framework for Node.js.
-- **TypeScript 5.2.2**: Strongly typed JavaScript that compiles to plain JavaScript.
-- **Yarn 1.22.0**: Fast, reliable, and secure dependency management.
-- **ESLint 8.48.0** & **Prettier 3.0.3**: Code quality tools for maintaining a consistent codebase.
-- **JWT 9.0.2**: Secure authentication and authorization with JSON Web Tokens.
-- **Joi 17.10.0**: Schema validation for API request bodies.
-- **Swagger UI Express 5.0.0**: Auto-generated API documentation.
-- **Mongoose 7.5.0**: Elegant MongoDB object modeling for Node.js.
+-   **Express 4.18.2**: A fast, unopinionated, minimalist web framework for Node.js.
+-   **TypeScript 5.2.2**: Strongly typed JavaScript that compiles to plain JavaScript.
+-   **Yarn 1.22.0**: Fast, reliable, and secure dependency management.
+-   **ESLint 8.48.0** & **Prettier 3.0.3**: Code quality tools for maintaining a consistent codebase.
+-   **JWT 9.0.2**: Secure authentication and authorization with JSON Web Tokens.
+-   **Joi 17.10.0**: Schema validation for API request bodies.
+-   **Swagger UI Express 5.0.0**: Auto-generated API documentation.
+-   **Mongoose 7.5.0**: Elegant MongoDB object modeling for Node.js.
 
 ## Setup
 
 1. **Clone the repository**:
+
     ```bash
     git clone https://github.com/yourusername/express-api-boilerplate.git
     cd express-api-boilerplate
     ```
 
 2. **Install dependencies**:
+
     ```bash
     yarn install
     ```
 
 3. **Environment setup**:
+
     - Create a `.env` file based on the `.env.example` template.
 
 4. **Running the application**:
-    - **Development**: 
+
+    - **Development**:
         ```bash
         yarn dev
         ```
@@ -91,21 +93,22 @@ This section should list any major frameworks/libraries used to bootstrap your p
         ```
 
 5. **Linting and formatting**:
+
     ```bash
     yarn eslint
     yarn prettier
     ```
 
 6. **Testing**:
-    - *(Include testing instructions if applicable)*
+    - _(Include testing instructions if applicable)_
 
 ## Scripts
 
-- `yarn dev`: Starts the development server with TypeScript watch mode.
-- `yarn build`: Compiles TypeScript to JavaScript.
-- `yarn start`: Runs the compiled application.
-- `yarn eslint`: Lints the codebase using ESLint.
-- `yarn prettier`: Formats the codebase using Prettier.
+-   `yarn dev`: Starts the development server with TypeScript watch mode.
+-   `yarn build`: Compiles TypeScript to JavaScript.
+-   `yarn start`: Runs the compiled application.
+-   `yarn eslint`: Lints the codebase using ESLint.
+-   `yarn prettier`: Formats the codebase using Prettier.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
