@@ -1,3 +1,5 @@
+import adminMiddleware from '@/middleware/admin.middleware';
+import authenticatedMiddleware from '@/middleware/authenticated.middleware';
 import validationMiddleware from '@/middleware/validation.middleware';
 import HttpException from '@/utils/exceptions/http.exception';
 import Controller from '@/utils/interfaces/controller.interface';
@@ -17,15 +19,24 @@ class EventController implements Controller {
     private initializeRoutes(): void {
         this.router.post(
             `${this.path}`,
+            authenticatedMiddleware,
+            adminMiddleware,
             validationMiddleware(validate.createEvent),
             this.createEvent
         );
         this.router.put(
             `${this.path}/:id`,
+            authenticatedMiddleware,
+            adminMiddleware,
             validationMiddleware(validate.updateEvent),
             this.updateEvent
         );
-        this.router.delete(`${this.path}/:id`, this.deleteEvent);
+        this.router.delete(
+            `${this.path}/:id`,
+            authenticatedMiddleware,
+            adminMiddleware,
+            this.deleteEvent
+        );
         this.router.get(`${this.path}`, this.getEvents);
     }
 
