@@ -12,10 +12,10 @@ type CustomRequest = Request & {
 };
 
 const storage: StorageEngine = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function (_req, _file, cb) {
         cb(null, 'uploads/'); // Specify the directory where files will be stored
     },
-    filename: function (req, file, cb) {
+    filename: function (_req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname); // Generate a unique filename
     },
 });

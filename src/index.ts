@@ -1,14 +1,14 @@
 import 'dotenv/config';
 import 'module-alias/register';
-import validateEnv from '@/utils/validateEnv';
 import App from './app';
-import PostController from '@/resources/post/post.controller';
-import UserController from '@/resources/user/user.controller';
+import EventController from './resources/event/event.controller';
+import UserController from './resources/user/user.controller';
+import validateEnv from './utils/validateEnv';
 
 validateEnv();
 
 const app = new App(
-    [new PostController(), new UserController()],
+    [new UserController(), new EventController()],
     Number(process.env.PORT)
 );
 

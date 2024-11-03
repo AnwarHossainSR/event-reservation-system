@@ -4,7 +4,6 @@ import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
 import helmet from 'helmet';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 import swaggerDocs from './swagger/swagger';
 
@@ -16,30 +15,11 @@ class App {
         this.express = express();
         this.port = port;
 
-        this.initialiseDatabaseConnection();
+        // this.initialiseDatabaseConnection();
         this.initialiseMiddleware();
         this.initialiseControllers(controllers);
         this.initialiseErrorHandling();
         this.initialiseSwagger();
-    }
-
-    private initialiseDatabaseConnection(): void {
-        const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
-
-        if (!MONGO_USER || !MONGO_PASSWORD || !MONGO_PATH) {
-            throw new Error(
-                'Please define MONGO_USER, MONGO_PASSWORD, MONGO_PATH in .env'
-            );
-        }
-
-        try {
-            mongoose.set('strictQuery', false);
-            mongoose.connect(
-                `mongodb://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`
-            );
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     public listen(): void {
