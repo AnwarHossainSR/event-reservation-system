@@ -5,6 +5,19 @@ class EventService {
 
     public async createEvent(data: Prisma.EventCreateInput): Promise<any> {
         try {
+            const overlapEvent = await this.prisma.event.findFirst({
+                where: {
+                    venue: data.venue,
+                    date: data.date,
+                },
+            });
+
+            if (overlapEvent) {
+                throw new Error(
+                    'An event is already scheduled at this time and venue.'
+                );
+            }
+
             return await this.prisma.event.create({ data });
         } catch (error: any) {
             throw new Error(error.message);

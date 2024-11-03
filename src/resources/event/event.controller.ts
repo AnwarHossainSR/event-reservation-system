@@ -146,8 +146,16 @@ class EventController implements Controller {
         next: NextFunction
     ): Promise<Response | void> => {
         try {
-            req.body.createdBy = req.user.id;
-            const event = await this.eventService.createEvent(req.body);
+            // Validate request body
+            const { error, value } = validate.createEvent.validate(req.body);
+            if (error) {
+                return next(new HttpException(400, error.details[0].message));
+            }
+
+            value.createdBy = req.user.id;
+
+            const event = await this.eventService.createEvent(value);
+
             res.status(201).json({
                 message: 'Event created successfully',
                 event,
