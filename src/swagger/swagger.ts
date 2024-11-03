@@ -27,6 +27,8 @@ const options = {
                     type: 'http',
                     scheme: 'bearer',
                     bearerFormat: 'JWT',
+                    name: 'Authorization',
+                    description: 'Enter JWT token',
                 },
             },
         },
@@ -34,8 +36,10 @@ const options = {
     },
     host: 'localhost:4000',
     schemes: ['http', 'https'],
-    basePath: '/api/v2', // Set the base path to '/api'
-    apis: ['./src/resources/**/*.controller.ts'], // Path to your controller files
+    basePath: '/api/v2',
+    apis: ['./src/resources/**/*.controller.ts'],
+    persistAuthorization: true,
+    persistAuthorizationInSession: true,
 };
 
 const swaggerSpec = swaggerJsDoc(options);

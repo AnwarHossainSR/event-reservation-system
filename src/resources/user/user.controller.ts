@@ -113,7 +113,7 @@ class UserController implements Controller {
      *               email:
      *                 type: string
      *                 format: email
-     *                 example: "test@gmail.com"
+     *                 example: "admin@admin.com"
      *               password:
      *                 type: string
      *                 format: password
