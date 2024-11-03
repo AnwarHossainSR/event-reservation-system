@@ -84,10 +84,13 @@ This section should list any major frameworks/libraries used to bootstrap your p
 4. **Running the application**:
 
     - **Development**:
+
         ```bash
         yarn dev
         ```
+
     - **Production**:
+
         ```bash
         yarn start
         ```
@@ -134,3 +137,9 @@ Don't forget to give the project a star! Thanks again!
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+**Linting and formatting**:
+
+    ```bash
+    docker inspect {postgres container id} | grep IPAddress
+    ```
