@@ -29,6 +29,54 @@ class UserController implements Controller {
         this.router.get(`/me`, authenticated, this.getUser);
     }
 
+    /**
+     * @swagger
+     * /api/users/register:
+     *   post:
+     *     tags:
+     *       - "User"
+     *     description: "Register User"
+     *     operationId: "registerUser"
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *                 example: "Mahedi Hasan"
+     *               email:
+     *                 type: string
+     *                 format: email
+     *                 example: "test@gmail.com"
+     *               password:
+     *                 type: string
+     *                 format: password
+     *                 example: "123456"
+     *     responses:
+     *       '201':
+     *         description: User registered successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 token:
+     *                   type: string
+     *       '400':
+     *         description: Bad Request
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   description: Message = Invalid request
+     *
+     */
     private register = async (
         req: Request,
         res: Response,
@@ -47,6 +95,51 @@ class UserController implements Controller {
         }
     };
 
+    /**
+     * @swagger
+     * /api/users/login:
+     *   post:
+     *     tags:
+     *       - "User"
+     *     description: "Login User"
+     *     operationId: "loginUser"
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               email:
+     *                 type: string
+     *                 format: email
+     *                 example: "test@gmail.com"
+     *               password:
+     *                 type: string
+     *                 format: password
+     *                 example: "123456"
+     *     responses:
+     *       '200':
+     *         description: User logged in successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 token:
+     *                   type: string
+     *       '400':
+     *         description: Bad Request
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   description: Message = Invalid request
+     *
+     */
     private login = async (
         req: Request,
         res: Response,
@@ -61,6 +154,38 @@ class UserController implements Controller {
         }
     };
 
+    /**
+     * @swagger
+     * /api/me:
+     *   get:
+     *     tags: [User]
+     *     description: "Get logged in user details"
+     *     operationId: "getMe"
+     *     security:
+     *       - bearerAuth: []
+     *     responses:
+     *       '200':
+     *         description: User details retrieved successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 data:
+     *                   type: object
+     *                   additionalProperties: true
+     *       '404':
+     *         description: User not found
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   description: Message = No logged-in user
+     *
+     */
     private getUser = (
         req: Request,
         res: Response,

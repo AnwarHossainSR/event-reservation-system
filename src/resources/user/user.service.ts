@@ -11,12 +11,13 @@ class UserService {
         password: string
     ): Promise<string | Error> {
         try {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
             const userData: Prisma.UserCreateInput = {
-                // Use Prisma.UserCreateInput here
-                name, // Ensure you are including the name if it's in the model
+                name,
                 email,
-                password,
-                role: 'USER', // Use the enum value correctly
+                password: hashedPassword,
+                role: 'USER',
             };
 
             const user = await this.prisma.user.create({
