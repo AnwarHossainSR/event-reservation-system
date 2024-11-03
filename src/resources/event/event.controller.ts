@@ -77,7 +77,10 @@ class EventController implements Controller {
     ): Promise<Response | void> => {
         try {
             const events = await this.eventService.getEvents();
-            res.status(200).json(events);
+            res.status(200).json({
+                message: 'Events retrieved successfully',
+                data: events,
+            });
         } catch (error: any) {
             next(new HttpException(400, error.message));
         }
@@ -158,7 +161,7 @@ class EventController implements Controller {
 
             res.status(201).json({
                 message: 'Event created successfully',
-                event,
+                data: event,
             });
         } catch (error: any) {
             next(new HttpException(400, error.message));
@@ -242,7 +245,7 @@ class EventController implements Controller {
             );
             res.status(200).json({
                 message: 'Event updated successfully',
-                event,
+                data: event,
             });
         } catch (error: any) {
             next(new HttpException(400, error.message));
