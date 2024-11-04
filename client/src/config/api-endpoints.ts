@@ -13,5 +13,6 @@ export const API_ENDPOINTS = {
   },
   RESERVATION: {
     GET_ALL: '/reservations',
+    CREATE: '/reservations/create',
   },
 }

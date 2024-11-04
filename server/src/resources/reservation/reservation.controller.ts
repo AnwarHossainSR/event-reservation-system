@@ -20,7 +20,6 @@ class ReservationController implements Controller {
         this.router.post(
             `${this.path}/create`,
             authenticated,
-            adminMiddleware,
             validationMiddleware(validate.create),
             this.createReservation
         );

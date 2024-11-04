@@ -1,3 +1,4 @@
+import { randomStaticImage } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -28,7 +29,7 @@ const EventItem = ({ event }: { event: any }) => {
         to={`/events/${event.id}/reservation`}
         className="relative block aspect-[368/239]"
       >
-        <img src={mainImage} alt={name} />
+        <img src={mainImage || randomStaticImage()} alt={name} />
       </Link>
 
       <div className="px-4">

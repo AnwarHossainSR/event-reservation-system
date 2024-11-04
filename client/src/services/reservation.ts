@@ -16,6 +16,20 @@ const getReservations = async () => {
   }
 }
 
+const createReservation = async (data: any) => {
+  try {
+    const response = await api.post(API_ENDPOINTS.RESERVATION.CREATE, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    })
+    return response?.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const reservationService = {
   getReservations,
+  createReservation,
 }

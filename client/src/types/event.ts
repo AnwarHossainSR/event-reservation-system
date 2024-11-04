@@ -9,4 +9,5 @@ export interface Event {
   createdBy?: any
   createdAt?: string
   updatedAt?: string
+  mainImage?: string
 }

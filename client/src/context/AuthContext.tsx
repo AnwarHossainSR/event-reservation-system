@@ -12,6 +12,7 @@ interface User {
   name: string
   email: string
   role?: string
+  id?: string
 }
 
 // Define the context type
