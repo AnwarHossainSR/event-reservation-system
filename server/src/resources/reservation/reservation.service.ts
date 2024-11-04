@@ -13,7 +13,6 @@ class ReservationService {
     ): Promise<Reservation> {
         try {
             return await this.prisma.$transaction(async transaction => {
-                // Fetch the event details including available seats, start and end dates
                 const event = await transaction.event.findUnique({
                     where: { id: eventId },
                     select: {
@@ -92,6 +91,21 @@ class ReservationService {
                         event: { connect: { id: eventId } },
                     },
                 });
+
+                const user = await transaction.user.findUnique({
+                    where: { id: userId },
+                    select: { email: true, name: true },
+                });
+
+                if (user) {
+                    await transaction.emailQueue.create({
+                        data: {
+                            to: user.email,
+                            subject: 'Your Reservation Confirmation',
+                            body: `Greeting ${user.name}!, \n\nYour reservation for ${eventId} has been confirmed. please find the details below:\n\nEvent Date: ${startDate}\nNumber of Seats: ${seats}\n\nThank you for using our service!`,
+                        },
+                    });
+                }
 
                 return reservation;
             });
