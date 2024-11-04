@@ -5,4 +5,8 @@ export interface Event {
   totalSeats: number
   availableSeats: number
   venue: string
+  id?: string
+  createdBy?: any
+  createdAt?: string
+  updatedAt?: string
 }

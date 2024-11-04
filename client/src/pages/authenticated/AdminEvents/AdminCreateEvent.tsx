@@ -79,7 +79,7 @@ const AdminCreateEvent = () => {
         }
       }
     } catch (error: any) {
-      toast.error('Something went wrong')
+      toast.error(error.response.data.message)
       console.error(error)
     }
   }
