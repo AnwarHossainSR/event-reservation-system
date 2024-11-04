@@ -1,4 +1,3 @@
-// src/jobs/emailJob.js
 import cron from 'node-cron';
 import EmailService from '../emailService';
 
