@@ -32,7 +32,17 @@ const AdminEditEvent = () => {
     try {
       const response = await eventService.fetchEventById(eventId)
       if (response) {
-        setEventData(response)
+        const { startDate, endDate, ...rest } = response.data
+
+        // Format startDate and endDate to "YYYY-MM-DDTHH:MM"
+        const formatDate = (date: any) =>
+          new Date(date).toISOString().slice(0, 16)
+
+        setEventData({
+          ...rest,
+          startDate: formatDate(startDate),
+          endDate: formatDate(endDate),
+        })
       }
     } catch (error) {
       toast.error('Failed to fetch event data')

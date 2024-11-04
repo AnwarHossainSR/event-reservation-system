@@ -110,6 +110,16 @@ class ReservationService {
             throw new Error(error.message);
         }
     }
+
+    public async getReservations(): Promise<Reservation[]> {
+        try {
+            return await this.prisma.reservation.findMany({
+                include: { user: true, event: true },
+            });
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
 }
 
 export default ReservationService;

@@ -11,4 +11,7 @@ export const API_ENDPOINTS = {
     GET_ALL: '/events',
     GET_BY_ID: '/events',
   },
+  RESERVATION: {
+    GET_ALL: '/reservations',
+  },
 }

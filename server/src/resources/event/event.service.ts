@@ -44,23 +44,21 @@ class EventService {
             const event = await this.prisma.event.findUnique({ where: { id } });
             if (!event) throw new Error('Event not found');
 
-            // Extract new values for venue, startDate, and endDate from incoming data
-            const venue = data.venue || event.venue; // Use existing venue if not provided
-            const startDate = data.startDate || event.startDate; // Use existing startDate if not provided
-            const endDate = data.endDate || event.endDate; // Use existing endDate if not provided
+            const venue = data.venue || event.venue;
+            const startDate = data.startDate || event.startDate;
+            const endDate = data.endDate || event.endDate;
 
-            // Prepare the where conditions for overlapping events
             const whereConditions: Prisma.EventWhereInput = {
-                id: { not: id }, // Exclude the current event
-                venue: venue as string, // Ensure this is a string
+                id: { not: id },
+                venue: venue as string,
                 AND: [
                     {
-                        startDate: { lte: endDate as Date }, // Ensure endDate is a Date
+                        startDate: { lte: endDate as Date },
                     },
                     {
-                        endDate: { gte: startDate as Date }, // Ensure startDate is a Date
+                        endDate: { gte: startDate as Date },
                     },
-                ] as Prisma.EventWhereInput[], // Explicitly assert the type
+                ] as Prisma.EventWhereInput[],
             };
 
             // Check for overlapping events if venue, startDate, or endDate are provided
@@ -106,6 +104,16 @@ class EventService {
     public async getEvents(): Promise<any[]> {
         try {
             return await this.prisma.event.findMany();
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+
+    public async getEvent(id: string): Promise<any> {
+        try {
+            const event = await this.prisma.event.findUnique({ where: { id } });
+            if (!event) throw new Error('Event not found');
+            return event;
         } catch (error: any) {
             throw new Error(error.message);
         }
