@@ -45,10 +45,10 @@ class ReservationController implements Controller {
      *             properties:
      *               userId:
      *                 type: string
-     *                 example: "12345"
+     *                 example: "cm31rajqh0000a4sld5dagd96"
      *               eventId:
      *                 type: string
-     *                 example: "67890"
+     *                 example: "cm32hl3270003qel6tai7ig1r"
      *               seats:
      *                 type: integer
      *                 example: 3

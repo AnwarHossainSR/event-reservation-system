@@ -106,22 +106,23 @@ class EventController implements Controller {
      *               name:
      *                 type: string
      *                 example: "Sample Event"
-     *               date:
+     *               startDate:
      *                 type: string
      *                 format: date-time
-     *                 example: "2024-11-03T00:00:00Z"
-     *               location:
+     *                 example: "2024-11-03T10:00:00Z"
+     *               endDate:
      *                 type: string
-     *                 example: "123 Sample Street, City, Country"
-     *               totalSeats:
-     *                 type: number
-     *                 example: 100
-     *               availableSeats:
-     *                 type: number
-     *                 example: 50
+     *                 format: date-time
+     *                 example: "2024-11-03T12:00:00Z"
      *               venue:
      *                 type: string
      *                 example: "Sample Venue"
+     *               totalSeats:
+     *                 type: integer
+     *                 example: 100
+     *               availableSeats:
+     *                 type: integer
+     *                 example: 100
      *
      *     responses:
      *       '201':
@@ -141,8 +142,8 @@ class EventController implements Controller {
      *                 message:
      *                   type: string
      *                   description: Message = Invalid request
-     *
      */
+
     private createEvent = async (
         req: Request,
         res: Response,
@@ -195,13 +196,23 @@ class EventController implements Controller {
      *               name:
      *                 type: string
      *                 example: "Updated Sample Event"
-     *               date:
+     *               startDate:
      *                 type: string
      *                 format: date-time
-     *                 example: "2024-11-03T00:00:00Z"
-     *               location:
+     *                 example: "2024-11-03T10:00:00Z"
+     *               endDate:
      *                 type: string
-     *                 example: "123 Updated Street, City, Country"
+     *                 format: date-time
+     *                 example: "2024-11-03T12:00:00Z"
+     *               venue:
+     *                 type: string
+     *                 example: "Updated Sample Venue"
+     *               totalSeats:
+     *                 type: integer
+     *                 example: 120
+     *               availableSeats:
+     *                 type: integer
+     *                 example: 80
      *     responses:
      *       '200':
      *         description: Event updated successfully
@@ -232,6 +243,7 @@ class EventController implements Controller {
      *                   description: Message = Event not found
      *
      */
+
     private updateEvent = async (
         req: Request,
         res: Response,

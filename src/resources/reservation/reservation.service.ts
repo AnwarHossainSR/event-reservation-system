@@ -1,3 +1,4 @@
+import HttpException from '@/utils/exceptions/http.exception';
 import { PrismaClient, Reservation } from '@prisma/client';
 
 class ReservationService {
@@ -9,20 +10,91 @@ class ReservationService {
         seats: number,
         startDate: Date,
         endDate: Date
-    ): Promise<Reservation | Error> {
+    ): Promise<Reservation> {
         try {
-            const reservationData = {
-                startDate,
-                endDate,
-                seats,
-                user: { connect: { id: userId } },
-                event: { connect: { id: eventId } },
-            };
+            return await this.prisma.$transaction(async transaction => {
+                // Fetch the event details including available seats, start and end dates
+                const event = await transaction.event.findUnique({
+                    where: { id: eventId },
+                    select: {
+                        availableSeats: true,
+                        startDate: true,
+                        endDate: true,
+                    },
+                });
 
-            const reservation = await this.prisma.reservation.create({
-                data: reservationData,
+                if (!event) {
+                    throw new HttpException(404, 'Invalid event ID');
+                }
+
+                // Check if the requested seats are available
+                if (event.availableSeats < seats) {
+                    throw new HttpException(400, 'Not enough available seats');
+                }
+
+                // Check if reservation dates are within the event's dates
+                if (startDate < event.startDate || endDate > event.endDate) {
+                    throw new HttpException(
+                        400,
+                        'Reservation dates must be within the event duration'
+                    );
+                }
+
+                // Check for overlapping reservations for the same user
+                const existingReservation =
+                    await transaction.reservation.findFirst({
+                        where: {
+                            userId: userId,
+                            eventId: eventId,
+                            // Check if there is any overlap in dates
+                            OR: [
+                                {
+                                    startDate: { lte: endDate },
+                                    endDate: { gte: startDate },
+                                },
+                            ],
+                        },
+                    });
+
+                if (existingReservation) {
+                    throw new HttpException(
+                        400,
+                        'User already has a reservation for this event on the same date'
+                    );
+                }
+
+                // Update the available seats in a transaction
+                const updatedEvent = await transaction.event.update({
+                    where: { id: eventId },
+                    data: {
+                        availableSeats: {
+                            decrement: seats,
+                        },
+                    },
+                    select: { availableSeats: true },
+                });
+
+                // Check again after decrementing to ensure there are enough seats
+                if (updatedEvent.availableSeats < 0) {
+                    throw new HttpException(
+                        400,
+                        'Not enough available seats after update'
+                    );
+                }
+
+                // Create the reservation
+                const reservation = await transaction.reservation.create({
+                    data: {
+                        startDate,
+                        endDate,
+                        seats,
+                        user: { connect: { id: userId } },
+                        event: { connect: { id: eventId } },
+                    },
+                });
+
+                return reservation;
             });
-            return reservation;
         } catch (error: any) {
             throw new Error(error.message);
         }
