@@ -8,8 +8,8 @@ export const AppRoutes: RouteConfig[] = [
     protected: false,
   },
   {
-    path: RouteConsts.ReservationDetailsPath,
-    page: RouteConsts.ReservationDetailsPage,
+    path: RouteConsts.EventDetailsPath,
+    page: RouteConsts.EventDetailsPage,
     protected: false,
   },
   {

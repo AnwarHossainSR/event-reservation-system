@@ -11,6 +11,7 @@ import React, {
 interface User {
   name: string
   email: string
+  role?: string
 }
 
 // Define the context type

@@ -2,7 +2,7 @@
 export const HomePath = '/'
 export const LoginPath = '/login'
 export const SignupPath = '/signup'
-export const ReservationDetailsPath = '/reservations/:id'
+export const EventDetailsPath = '/events/:id/reservation'
 
 //authenticated
 export const DashboardPath = '/admin/dashboard'
@@ -15,7 +15,7 @@ export const AdminReservationsPath = '/admin/reservations'
 export const HomePage = 'Home'
 export const LoginPage = 'Login'
 export const SignupPage = 'Signup'
-export const ReservationDetailsPage = 'ReservationDetails'
+export const EventDetailsPage = 'EventDetails'
 
 //authenticated
 export const DashboardPage = 'Dashboard'

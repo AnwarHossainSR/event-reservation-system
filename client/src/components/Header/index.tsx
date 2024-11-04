@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
+import { ADMIN, USER } from '@/config/constant'
 import { useAuth } from '@/context/AuthContext'
 import { Link, NavLink } from 'react-router-dom'
 import ThemeToggler from './ThemeToggler'
@@ -8,7 +9,7 @@ import ThemeToggler from './ThemeToggler'
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false)
   const [stickyMenu, setStickyMenu] = useState(false)
-  const { user } = useAuth()
+  const { user, isAuthenticated, logout } = useAuth()
 
   const handleStickyMenu = () => {
     if (window.scrollY >= 80) {
@@ -103,12 +104,30 @@ const Header = () => {
 
           <div className="mt-7 flex items-center gap-6 xl:mt-0">
             <ThemeToggler />
-            <Link
-              to={user ? '/admin/dashboard' : '/login'}
-              className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
-            >
-              {user ? 'Dashboard' : 'Login'}
-            </Link>
+            {!isAuthenticated && (
+              <Link
+                to="/login"
+                className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              >
+                Login
+              </Link>
+            )}
+            {user?.role === USER && (
+              <button
+                onClick={() => logout()}
+                className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              >
+                Sign Out
+              </button>
+            )}
+            {user?.role === ADMIN && (
+              <Link
+                to="/admin/dashboard"
+                className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              >
+                Dashboard
+              </Link>
+            )}
           </div>
         </div>
       </div>

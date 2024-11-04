@@ -6,9 +6,7 @@ export const Pages: {
   Login: React.lazy(() => import('@/pages/auth/Login')),
   Signup: React.lazy(() => import('@/pages/auth/Signup')),
   Home: React.lazy(() => import('@/pages/home')),
-  ReservationDetails: React.lazy(
-    () => import('@/pages/reservations/reservation-details')
-  ),
+  EventDetails: React.lazy(() => import('@/pages/home/event-details')),
   // Authenticated
   Dashboard: React.lazy(() => import('@/pages/authenticated/Dashboard')),
   AdminEvents: React.lazy(() => import('@/pages/authenticated/AdminEvents')),

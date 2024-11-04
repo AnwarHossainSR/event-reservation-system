@@ -1,6 +1,7 @@
+import { ADMIN, USER } from '@/config/constant'
 import { useAuth } from '@/context/AuthContext'
 import { motion } from 'framer-motion'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -15,7 +16,7 @@ const Signin: React.FC = () => {
     password: '',
   })
   const navigate = useNavigate()
-  const { login, isAuthenticated, loading } = useAuth()
+  const { login, loading, user } = useAuth()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -28,9 +29,15 @@ const Signin: React.FC = () => {
     }
   }
 
-  if (isAuthenticated) {
-    navigate('/admin/dashboard')
-  }
+  useEffect(() => {
+    if (user) {
+      if (user.role === ADMIN) {
+        navigate('/admin/dashboard')
+      } else if (user.role === USER) {
+        navigate('/')
+      }
+    }
+  }, [navigate, user, loading])
 
   return (
     <>

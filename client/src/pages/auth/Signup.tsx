@@ -1,6 +1,7 @@
+import { ADMIN, USER } from '@/config/constant'
 import { useAuth } from '@/context/AuthContext'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,7 +12,7 @@ interface SignupData {
 }
 
 const Signup: React.FC = () => {
-  const { register, loading, isAuthenticated } = useAuth()
+  const { register, loading, user } = useAuth()
   const navigate = useNavigate()
   const [data, setData] = useState<SignupData>({
     name: '',
@@ -19,14 +20,19 @@ const Signup: React.FC = () => {
     password: '',
   })
 
-  if (isAuthenticated) {
-    navigate('/admin/dashboard')
-  }
+  useEffect(() => {
+    if (user) {
+      if (user.role === ADMIN) {
+        navigate('/admin/dashboard')
+      } else if (user.role === USER) {
+        navigate('/')
+      }
+    }
+  }, [navigate, user, loading])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      // Basic validation
       if (!data.name || !data.email || !data.password) {
         toast.error('Please fill in all fields')
         return
