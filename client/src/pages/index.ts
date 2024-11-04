@@ -9,4 +9,6 @@ export const Pages: {
   ReservationDetails: React.lazy(
     () => import('@/pages/reservations/reservation-details')
   ),
+  // Authenticated
+  Dashboard: React.lazy(() => import('@/pages/authenticated/Dashboard')),
 }

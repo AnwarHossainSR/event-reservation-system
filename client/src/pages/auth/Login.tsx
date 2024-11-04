@@ -1,13 +1,14 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Signin = () => {
   const [data, setData] = useState({
     email: '',
     password: '',
   })
+  const navigate = useNavigate()
 
   return (
     <>
@@ -182,6 +183,7 @@ const Signin = () => {
                 <button
                   aria-label="login with email and password"
                   className="inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 font-medium text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                  onClick={() => navigate('/dashboard')}
                 >
                   Log in
                   <svg
