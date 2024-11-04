@@ -1,16 +1,15 @@
 import { useState } from 'react'
+import { BsLifePreserver } from 'react-icons/bs'
 import {
   FiChevronDown,
   FiChevronUp,
   FiGrid,
   FiHome,
-  FiList,
   FiLogOut,
-  FiSettings,
-  FiStar,
-  FiUser,
   FiX,
 } from 'react-icons/fi'
+import { MdEmojiEvents } from 'react-icons/md'
+
 import { Link } from 'react-router-dom'
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
@@ -27,43 +26,22 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
     {
       name: 'Dashboard',
       icon: <FiGrid />,
-      path: '/admin',
+      path: '/admin/dashboard',
       subItems: [],
     },
     {
-      name: 'Users',
-      icon: <FiUser />,
-      path: '/admin/users',
-      subItems: [
-        { name: 'All Users', path: '/admin/users/all' },
-        { name: 'Create User', path: '/admin/users/create' },
-      ],
+      name: 'Reservations',
+      icon: <BsLifePreserver />,
+      path: '/admin/reservations',
+      subItems: [],
     },
     {
-      name: 'Categories',
-      icon: <FiList />,
-      path: '/admin/categories',
+      name: 'Events',
+      icon: <MdEmojiEvents />,
+      path: '/admin/events',
       subItems: [
-        { name: 'All Categories', path: '/admin/categories/all' },
-        { name: 'Create Category', path: '/admin/categories/create' },
-      ],
-    },
-    {
-      name: 'Posts', // Updated from Reviews to Posts
-      icon: <FiStar />,
-      path: '/admin/posts',
-      subItems: [
-        { name: 'All Posts', path: '/admin/posts/all' },
-        { name: 'Create Post', path: '/admin/posts/create' },
-      ],
-    },
-    {
-      name: 'Settings',
-      icon: <FiSettings />,
-      path: '/admin/settings',
-      subItems: [
-        { name: 'General', path: '/admin/settings/general' },
-        { name: 'Security', path: '/admin/settings/security' },
+        { name: 'All Events', path: '/admin/events' },
+        { name: 'Create Event', path: '/admin/events/create' },
       ],
     },
   ]

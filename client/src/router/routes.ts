@@ -27,4 +27,24 @@ export const AppRoutes: RouteConfig[] = [
     page: RouteConsts.DashboardPage,
     protected: true,
   },
+  {
+    path: RouteConsts.AdminEventsPath,
+    page: RouteConsts.AdminEventsPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminCreateEventPath,
+    page: RouteConsts.AdminCreateEventPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminEditEventPath,
+    page: RouteConsts.AdminEditEventPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminReservationsPath,
+    page: RouteConsts.AdminReservationsPage,
+    protected: true,
+  },
 ]

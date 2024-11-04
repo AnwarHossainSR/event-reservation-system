@@ -11,4 +11,14 @@ export const Pages: {
   ),
   // Authenticated
   Dashboard: React.lazy(() => import('@/pages/authenticated/Dashboard')),
+  AdminEvents: React.lazy(() => import('@/pages/authenticated/AdminEvents')),
+  AdminCreateEvent: React.lazy(
+    () => import('@/pages/authenticated/AdminEvents/AdminCreateEvent')
+  ),
+  AdminEditEvent: React.lazy(
+    () => import('@/pages/authenticated/AdminEvents/AdminEditEvent')
+  ),
+  AdminReservations: React.lazy(
+    () => import('@/pages/authenticated/AdminReservations')
+  ),
 }
