@@ -29,11 +29,11 @@ model User {
 model Event {
   id             String        @id @default(cuid())
   name           String
-  startDate      DateTime // Event start date
-  endDate        DateTime // Event end date
+  startDate      DateTime
+  endDate        DateTime
   totalSeats     Int
-  availableSeats Int // Track remaining seats
-  venue          String // Venue for the event
+  availableSeats Int
+  venue          String
   reservations   Reservation[]
   createdBy      String
   createdByUser  User          @relation(fields: [createdBy], references: [id])
@@ -41,7 +41,7 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([startDate, endDate]) // Optional index for date-based queries
+  @@index([startDate, endDate])
 }
 
 model Reservation {
@@ -51,9 +51,19 @@ model Reservation {
   event     Event    @relation(fields: [eventId], references: [id])
   eventId   String
   seats     Int
-  startDate DateTime // Reservation start date
-  endDate   DateTime // Reservation end date
+  startDate DateTime
+  endDate   DateTime
   createdAt DateTime @default(now())
+}
+
+model EmailQueue {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {

@@ -1,3 +1,4 @@
+import adminMiddleware from '@/middleware/admin.middleware';
 import authenticated from '@/middleware/authenticated.middleware';
 import validationMiddleware from '@/middleware/validation.middleware';
 import ReservationService from '@/resources/reservation/reservation.service';
@@ -23,6 +24,12 @@ class ReservationController implements Controller {
             this.createReservation
         );
         this.router.get(`${this.path}/:id`, authenticated, this.getReservation);
+        this.router.get(
+            `${this.path}`,
+            authenticated,
+            adminMiddleware,
+            this.getReservations
+        );
     }
 
     /**
@@ -169,6 +176,62 @@ class ReservationController implements Controller {
             res.status(200).json({
                 message: 'Reservation retrieved successfully',
                 data: reservation,
+            });
+        } catch (error: any) {
+            next(new HttpException(400, error.message));
+        }
+    };
+
+    /**
+     * @swagger
+     * /api/reservations:
+     *   get:
+     *     tags:
+     *       - "Reservation"
+     *     summary: "Retrieve all reservations"
+     *     description: "Retrieves a list of all reservations."
+     *     operationId: "getReservations"
+     *     security:
+     *       - bearerAuth: []
+     *     responses:
+     *       '200':
+     *         description: Reservations retrieved successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   example: "Reservations retrieved successfully"
+     *                 data:
+     *                   type: array
+     *                   items:
+     *                     type: object
+     *                     additionalProperties: true
+     *       '400':
+     *         description: Bad request
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   example: "Bad request"
+     */
+
+    private getReservations = async (
+        _req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const reservations =
+                await this.reservationService.getReservations();
+            res.status(200).json({
+                message: 'Reservations retrieved successfully',
+                data: reservations,
             });
         } catch (error: any) {
             next(new HttpException(400, error.message));

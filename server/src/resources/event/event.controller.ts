@@ -38,6 +38,7 @@ class EventController implements Controller {
             this.deleteEvent
         );
         this.router.get(`${this.path}`, this.getEvents);
+        this.router.get(`${this.path}/:id`, this.getEventById);
     }
 
     /**
@@ -309,6 +310,83 @@ class EventController implements Controller {
             });
         } catch (error: any) {
             next(new HttpException(404, error.message));
+        }
+    };
+
+    /**
+     * @swagger
+     * /api/events/{id}:
+     *   get:
+     *     tags:
+     *       - "Event"
+     *     description: "Get an event by ID"
+     *     operationId: "getEventById"
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - name: id
+     *         in: path
+     *         required: true
+     *         description: The ID of the event to retrieve
+     *         schema:
+     *           type: string
+     *     responses:
+     *       '200':
+     *         description: Event fetched successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   description: "Event fetched successfully!"
+     *                 data:
+     *                   type: object
+     *                   description: "Event data"
+     *                   properties:
+     *                     id:
+     *                       type: string
+     *                       description: "ID of the event"
+     *                     name:
+     *                       type: string
+     *                       description: "Name of the event"
+     *                     description:
+     *                       type: string
+     *                       description: "Description of the event"
+     *                     date:
+     *                       type: string
+     *                       format: date-time
+     *                       description: "Date and time of the event"
+     *                     location:
+     *                       type: string
+     *                       description: "Location of the event"
+     *       '400':
+     *         description: Bad request or error fetching the event
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 message:
+     *                   type: string
+     *                   description: "Error message describing the problem"
+     */
+
+    private getEventById = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const eventId = req.params.id;
+            const event = await this.eventService.getEvent(eventId);
+            res.status(200).json({
+                message: 'Event fetched successfully!',
+                data: event,
+            });
+        } catch (error: any) {
+            next(new HttpException(400, error.message));
         }
     };
 }

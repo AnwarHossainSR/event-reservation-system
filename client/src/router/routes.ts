@@ -8,8 +8,8 @@ export const AppRoutes: RouteConfig[] = [
     protected: false,
   },
   {
-    path: RouteConsts.ReservationDetailsPath,
-    page: RouteConsts.ReservationDetailsPage,
+    path: RouteConsts.EventDetailsPath,
+    page: RouteConsts.EventDetailsPage,
     protected: false,
   },
   {
@@ -25,6 +25,26 @@ export const AppRoutes: RouteConfig[] = [
   {
     path: RouteConsts.DashboardPath,
     page: RouteConsts.DashboardPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminEventsPath,
+    page: RouteConsts.AdminEventsPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminCreateEventPath,
+    page: RouteConsts.AdminCreateEventPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminEditEventPath,
+    page: RouteConsts.AdminEditEventPage,
+    protected: true,
+  },
+  {
+    path: RouteConsts.AdminReservationsPath,
+    page: RouteConsts.AdminReservationsPage,
     protected: true,
   },
 ]

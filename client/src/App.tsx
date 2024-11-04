@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'next-themes'
+import ToasterContext from './context/ToastContext'
 import RouterConfig from './router/router'
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       >
         <RouterConfig />
       </ThemeProvider>
+      <ToasterContext />
     </main>
   )
 }

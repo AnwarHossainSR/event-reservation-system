@@ -11,6 +11,12 @@ class UserService {
         password: string
     ): Promise<string | Error> {
         try {
+            const isExists = await this.prisma.user.findUnique({
+                where: { email },
+            });
+            if (isExists) {
+                throw new Error('User already exists');
+            }
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
             const userData: Prisma.UserCreateInput = {

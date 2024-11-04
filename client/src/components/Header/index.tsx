@@ -1,16 +1,16 @@
 'use client'
 import { useEffect, useState } from 'react'
 
+import { ADMIN, USER } from '@/config/constant'
+import { useAuth } from '@/context/AuthContext'
 import { Link, NavLink } from 'react-router-dom'
 import ThemeToggler from './ThemeToggler'
-import menuData from './menuData'
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false)
-  const [dropdownToggler, setDropdownToggler] = useState(false)
   const [stickyMenu, setStickyMenu] = useState(false)
+  const { user, isAuthenticated, logout } = useAuth()
 
-  // Sticky menu
   const handleStickyMenu = () => {
     if (window.scrollY >= 80) {
       setStickyMenu(true)
@@ -99,64 +99,35 @@ const Header = () => {
           }`}
         >
           <nav>
-            <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
-              {menuData.map((menuItem, key) => (
-                <li key={key} className={menuItem.submenu && 'group relative'}>
-                  {menuItem.submenu ? (
-                    <>
-                      <button
-                        onClick={() => setDropdownToggler(!dropdownToggler)}
-                        className="flex cursor-pointer items-center justify-between gap-3 hover:text-primary"
-                      >
-                        {menuItem.title}
-                        <span>
-                          <svg
-                            className="h-3 w-3 cursor-pointer fill-waterloo group-hover:fill-primary"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                          >
-                            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                          </svg>
-                        </span>
-                      </button>
-
-                      <ul
-                        className={`dropdown ${dropdownToggler ? 'flex' : ''}`}
-                      >
-                        {menuItem.submenu.map((item, key) => (
-                          <li key={key} className="hover:text-primary">
-                            <NavLink to={item.path || '#'}>
-                              {item.title}
-                            </NavLink>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <NavLink
-                      to={`${menuItem.path}`}
-                      className={
-                        'pathUrl' === menuItem.path
-                          ? 'text-primary hover:text-primary'
-                          : 'hover:text-primary'
-                      }
-                    >
-                      {menuItem.title}
-                    </NavLink>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10"></ul>
           </nav>
 
           <div className="mt-7 flex items-center gap-6 xl:mt-0">
             <ThemeToggler />
-            <Link
-              to="/login"
-              className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
-            >
-              Sign In
-            </Link>
+            {!isAuthenticated && (
+              <Link
+                to="/login"
+                className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              >
+                Login
+              </Link>
+            )}
+            {user?.role === USER && (
+              <button
+                onClick={() => logout()}
+                className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              >
+                Sign Out
+              </button>
+            )}
+            {user?.role === ADMIN && (
+              <Link
+                to="/admin/dashboard"
+                className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              >
+                Dashboard
+              </Link>
+            )}
           </div>
         </div>
       </div>

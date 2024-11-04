@@ -1,22 +1,21 @@
+import { useAuth } from '@/context/AuthContext'
 import { useState } from 'react'
+import { BsLifePreserver } from 'react-icons/bs'
 import {
   FiChevronDown,
   FiChevronUp,
   FiGrid,
   FiHome,
-  FiList,
   FiLogOut,
-  FiSettings,
-  FiStar,
-  FiUser,
   FiX,
 } from 'react-icons/fi'
+import { MdEmojiEvents } from 'react-icons/md'
+
 import { Link } from 'react-router-dom'
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
-  // Receive props
-  const [openDropdown, setOpenDropdown] = useState(null) // Track which dropdown is open
-
+  const [openDropdown, setOpenDropdown] = useState(null)
+  const { logout } = useAuth()
   const menuItems = [
     {
       name: 'Home',
@@ -27,49 +26,32 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
     {
       name: 'Dashboard',
       icon: <FiGrid />,
-      path: '/admin',
+      path: '/admin/dashboard',
       subItems: [],
     },
     {
-      name: 'Users',
-      icon: <FiUser />,
-      path: '/admin/users',
-      subItems: [
-        { name: 'All Users', path: '/admin/users/all' },
-        { name: 'Create User', path: '/admin/users/create' },
-      ],
+      name: 'Reservations',
+      icon: <BsLifePreserver />,
+      path: '/admin/reservations',
+      subItems: [],
     },
     {
-      name: 'Categories',
-      icon: <FiList />,
-      path: '/admin/categories',
+      name: 'Events',
+      icon: <MdEmojiEvents />,
+      path: '/admin/events',
       subItems: [
-        { name: 'All Categories', path: '/admin/categories/all' },
-        { name: 'Create Category', path: '/admin/categories/create' },
-      ],
-    },
-    {
-      name: 'Posts', // Updated from Reviews to Posts
-      icon: <FiStar />,
-      path: '/admin/posts',
-      subItems: [
-        { name: 'All Posts', path: '/admin/posts/all' },
-        { name: 'Create Post', path: '/admin/posts/create' },
-      ],
-    },
-    {
-      name: 'Settings',
-      icon: <FiSettings />,
-      path: '/admin/settings',
-      subItems: [
-        { name: 'General', path: '/admin/settings/general' },
-        { name: 'Security', path: '/admin/settings/security' },
+        { name: 'All Events', path: '/admin/events' },
+        { name: 'Create Event', path: '/admin/events/create' },
       ],
     },
   ]
 
-  const logout = () => {
-    console.log('Logout')
+  const handleLogout = async () => {
+    try {
+      logout()
+    } catch (error) {
+      console.error('Logout error:', error)
+    }
   }
 
   const toggleDropdown = (index: any) => {
@@ -86,25 +68,21 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-200 md:relative md:translate-x-0`}
     >
-      {/* Sidebar header */}
       <div className="flex items-center justify-between h-16 px-4">
         <span className="text-xl font-semibold text-black dark:text-white">
           Admin
         </span>
-        {/* Close button on mobile */}
         <button
-          onClick={toggleSidebar} // Toggle sidebar
+          onClick={toggleSidebar}
           className="text-black dark:text-white md:hidden focus:outline-none"
         >
           <FiX size={24} />
         </button>
       </div>
 
-      {/* Navigation menu */}
       <nav className="px-4 py-2 overflow-y-auto">
         {menuItems.map((item, index) => (
           <div key={item.name} className="mb-2">
-            {/* Main Menu Item */}
             <div
               className="flex items-center justify-between px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md cursor-pointer"
               onClick={() => item.subItems.length > 0 && toggleDropdown(index)}
@@ -120,7 +98,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
               )}
             </div>
 
-            {/* Submenu (Dropdown) */}
             <div
               className={`overflow-hidden transition-all duration-1000 ease-in-out transform ${
                 openDropdown === index
@@ -145,11 +122,10 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
           </div>
         ))}
 
-        {/* Logout Button */}
         <div className="mt-8">
           <span
             className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md cursor-pointer"
-            onClick={logout}
+            onClick={handleLogout}
           >
             <FiLogOut className="text-xl text-red-700" />
             <span className="ml-4">Logout</span>
