@@ -22,4 +22,9 @@ export const AppRoutes: RouteConfig[] = [
     page: RouteConsts.SignupPage,
     protected: false,
   },
+  {
+    path: RouteConsts.DashboardPath,
+    page: RouteConsts.DashboardPage,
+    protected: true,
+  },
 ]

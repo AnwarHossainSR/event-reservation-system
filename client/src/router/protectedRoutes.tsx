@@ -4,7 +4,7 @@ import AdminLayout from '@/layout/AdminLayout'
 import { Navigate, Outlet } from 'react-router-dom'
 
 export const ProtectedRoute = () => {
-  const user = null
+  const user = { id: 1, name: 'John Doe' }
   const loading = false
 
   if (loading) {
