@@ -14,8 +14,7 @@ import { MdEmojiEvents } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
-  // Receive props
-  const [openDropdown, setOpenDropdown] = useState(null) // Track which dropdown is open
+  const [openDropdown, setOpenDropdown] = useState(null)
   const { logout } = useAuth()
   const menuItems = [
     {
@@ -49,7 +48,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
 
   const handleLogout = async () => {
     try {
-      await logout()
+      logout()
     } catch (error) {
       console.error('Logout error:', error)
     }
@@ -69,25 +68,21 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-200 md:relative md:translate-x-0`}
     >
-      {/* Sidebar header */}
       <div className="flex items-center justify-between h-16 px-4">
         <span className="text-xl font-semibold text-black dark:text-white">
           Admin
         </span>
-        {/* Close button on mobile */}
         <button
-          onClick={toggleSidebar} // Toggle sidebar
+          onClick={toggleSidebar}
           className="text-black dark:text-white md:hidden focus:outline-none"
         >
           <FiX size={24} />
         </button>
       </div>
 
-      {/* Navigation menu */}
       <nav className="px-4 py-2 overflow-y-auto">
         {menuItems.map((item, index) => (
           <div key={item.name} className="mb-2">
-            {/* Main Menu Item */}
             <div
               className="flex items-center justify-between px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md cursor-pointer"
               onClick={() => item.subItems.length > 0 && toggleDropdown(index)}
@@ -103,7 +98,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
               )}
             </div>
 
-            {/* Submenu (Dropdown) */}
             <div
               className={`overflow-hidden transition-all duration-1000 ease-in-out transform ${
                 openDropdown === index
@@ -128,7 +122,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: any) => {
           </div>
         ))}
 
-        {/* Logout Button */}
         <div className="mt-8">
           <span
             className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md cursor-pointer"

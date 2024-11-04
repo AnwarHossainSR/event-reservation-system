@@ -1,6 +1,7 @@
 import { useAuth } from '@/context/AuthContext'
 import { motion } from 'framer-motion'
 import { FormEvent, useState } from 'react'
+import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 interface SignInData {
@@ -13,19 +14,17 @@ const Signin: React.FC = () => {
     email: '',
     password: '',
   })
-  const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { login, isAuthenticated, loading } = useAuth()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setError(null)
 
     try {
       await login(data.email, data.password)
     } catch (err: any) {
+      toast.error(err.message)
       console.log('error', err)
-      setError('Invalid email or password')
     }
   }
 
@@ -71,8 +70,6 @@ const Signin: React.FC = () => {
             <h2 className="mb-15 text-center text-3xl font-semibold text-black dark:text-white xl:text-sectiontitle2">
               Login to Your Account
             </h2>
-
-            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
             <form onSubmit={handleSubmit}>
               <div className="mb-7.5 flex flex-col gap-7.5 lg:mb-12.5 lg:flex-row lg:justify-between lg:gap-14">

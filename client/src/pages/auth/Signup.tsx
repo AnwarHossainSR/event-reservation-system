@@ -1,6 +1,7 @@
 import { useAuth } from '@/context/AuthContext'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 interface SignupData {
@@ -17,7 +18,6 @@ const Signup: React.FC = () => {
     email: '',
     password: '',
   })
-  const [error, setError] = useState<string>('')
 
   if (isAuthenticated) {
     navigate('/admin/dashboard')
@@ -25,15 +25,17 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    // Basic validation
-    if (!data.name || !data.email || !data.password) {
-      setError('All fields are required')
-      return
+    try {
+      // Basic validation
+      if (!data.name || !data.email || !data.password) {
+        toast.error('Please fill in all fields')
+        return
+      }
+      await register(data)
+    } catch (error: any) {
+      toast.error(error.message)
+      console.log('error', error)
     }
-
-    setError('') // Clear previous error if any
-    await register(data)
   }
 
   return (
@@ -86,8 +88,6 @@ const Signup: React.FC = () => {
                 className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
               />
             </div>
-
-            {error && <p className="mb-4 text-red-500 text-center">{error}</p>}
 
             <div className="flex flex-wrap gap-10 md:justify-between xl:gap-15">
               <button
