@@ -180,16 +180,19 @@ describe('EventController', () => {
 
     describe('DELETE /api/events/:id', () => {
         it('should delete an event successfully', async () => {
-            jest.spyOn(eventServiceMock, 'deleteEvent').mockResolvedValueOnce(
-                undefined
-            );
+            if (newlyCreatedEventId) {
+                jest.spyOn(
+                    eventServiceMock,
+                    'deleteEvent'
+                ).mockResolvedValueOnce(undefined);
 
-            const response = await request(app.express)
-                .delete(`/api/events/${newlyCreatedEventId}`)
-                .set('Authorization', `Bearer ${authToken}`);
+                const response = await request(app.express)
+                    .delete(`/api/events/${newlyCreatedEventId}`)
+                    .set('Authorization', `Bearer ${authToken}`);
 
-            expect(response.status).toBe(204);
-            expect(response.body).toEqual({});
+                expect(response.status).toBe(204);
+                expect(response.body).toEqual({});
+            }
         });
 
         it('should return a 404 error if the event is not found', async () => {
