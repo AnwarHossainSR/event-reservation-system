@@ -13,11 +13,12 @@
         "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
         "build": "tsc",
         "postinstall": "npm run build",
-        "prepare": "husky install",
+        "prepare": "husky install && yarn run seed",
         "eslint": "eslint --fix src",
         "prettier": "prettier --write .",
         "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
-        "test": "npx jest"
+        "test": "npx jest",
+        "seed": "ts-node prisma/seed.ts"
     },
     "lint-staged": {
         "*.{md,ts,tsx}": "yarn prettier",
