@@ -93,6 +93,14 @@ class EventService {
             const event = await this.prisma.event.findUnique({ where: { id } });
             if (!event) throw new Error('Event not found');
 
+            //check for reservation
+            const reservation = await this.prisma.reservation.findFirst({
+                where: { eventId: id },
+            });
+            if (reservation) {
+                throw new Error('Event is reserved by a user');
+            }
+
             await this.prisma.event.delete({ where: { id } });
         } catch (error: any) {
             throw new Error(error.message);

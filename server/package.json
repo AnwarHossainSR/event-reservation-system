@@ -4,20 +4,16 @@
     "description": "",
     "main": "index.js",
     "engines": {
-        "node": ">=20.0.0",
-        "yarn": ">=1.22.0",
-        "npm": "please-use-yarn"
+        "node": ">=20.18.0"
     },
     "scripts": {
-        "start": "node dist/index.js",
-        "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
+        "start": "node dist/src/index.js",
+        "dev": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
         "build": "tsc",
-        "postinstall": "npm run build",
-        "prepare": "husky install && yarn run seed",
         "eslint": "eslint --fix src",
         "prettier": "prettier --write .",
         "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
-        "test": "npx jest",
+        "test": "npx jest --coverage",
         "seed": "ts-node prisma/seed.ts"
     },
     "lint-staged": {

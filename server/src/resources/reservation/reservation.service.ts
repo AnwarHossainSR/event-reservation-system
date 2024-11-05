@@ -75,10 +75,7 @@ class ReservationService {
 
                 // Check again after decrementing to ensure there are enough seats
                 if (updatedEvent.availableSeats < 0) {
-                    throw new HttpException(
-                        400,
-                        'Not enough available seats after update'
-                    );
+                    throw new HttpException(400, 'Not enough available seats');
                 }
 
                 // Create the reservation
