@@ -1,9 +1,9 @@
-import adminMiddleware from '@/middleware/admin.middleware';
-import authenticatedMiddleware from '@/middleware/authenticated.middleware';
-import validationMiddleware from '@/middleware/validation.middleware';
-import HttpException from '@/utils/exceptions/http.exception';
-import Controller from '@/utils/interfaces/controller.interface';
 import { NextFunction, Request, Response, Router } from 'express';
+import adminMiddleware from '../../middleware/admin.middleware';
+import authenticatedMiddleware from '../../middleware/authenticated.middleware';
+import validationMiddleware from '../../middleware/validation.middleware';
+import HttpException from '../../utils/exceptions/http.exception';
+import Controller from '../../utils/interfaces/controller.interface';
 import EventService from './event.service';
 import validate from './event.validation';
 

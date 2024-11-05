@@ -1,11 +1,11 @@
-import adminMiddleware from '@/middleware/admin.middleware';
-import authenticated from '@/middleware/authenticated.middleware';
-import validationMiddleware from '@/middleware/validation.middleware';
-import ReservationService from '@/resources/reservation/reservation.service';
-import validate from '@/resources/reservation/reservation.validation';
-import HttpException from '@/utils/exceptions/http.exception';
-import Controller from '@/utils/interfaces/controller.interface';
 import { NextFunction, Request, Response, Router } from 'express';
+import adminMiddleware from '../../middleware/admin.middleware';
+import authenticated from '../../middleware/authenticated.middleware';
+import validationMiddleware from '../../middleware/validation.middleware';
+import ReservationService from '../../resources/reservation/reservation.service';
+import validate from '../../resources/reservation/reservation.validation';
+import HttpException from '../../utils/exceptions/http.exception';
+import Controller from '../../utils/interfaces/controller.interface';
 
 class ReservationController implements Controller {
     public path = '/reservations';
@@ -29,6 +29,12 @@ class ReservationController implements Controller {
             authenticated,
             adminMiddleware,
             this.getReservations
+        );
+        this.router.delete(
+            `${this.path}/:id`,
+            authenticated,
+            adminMiddleware,
+            this.deleteReservation
         );
     }
 
@@ -232,6 +238,22 @@ class ReservationController implements Controller {
             res.status(200).json({
                 message: 'Reservations retrieved successfully',
                 data: reservations,
+            });
+        } catch (error: any) {
+            next(new HttpException(400, error.message));
+        }
+    };
+
+    protected deleteReservation = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | any> => {
+        try {
+            const { id } = req.params;
+            await this.reservationService.deleteReservation(id);
+            res.status(200).json({
+                message: 'Reservation deleted successfully',
             });
         } catch (error: any) {
             next(new HttpException(400, error.message));

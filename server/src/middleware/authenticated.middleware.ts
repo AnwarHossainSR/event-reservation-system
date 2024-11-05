@@ -1,6 +1,6 @@
-import HttpException from '@/utils/exceptions/http.exception';
-import Token from '@/utils/interfaces/token.interface';
-import token from '@/utils/token';
+import HttpException from '../utils/exceptions/http.exception';
+import Token from '../utils/interfaces/token.interface';
+import token from '../utils/token';
 import { PrismaClient } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';

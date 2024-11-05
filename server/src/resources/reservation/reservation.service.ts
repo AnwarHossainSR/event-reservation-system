@@ -1,5 +1,5 @@
-import HttpException from '@/utils/exceptions/http.exception';
 import { PrismaClient, Reservation } from '@prisma/client';
+import HttpException from '../../utils/exceptions/http.exception';
 
 class ReservationService {
     private prisma = new PrismaClient();
@@ -130,6 +130,14 @@ class ReservationService {
             return await this.prisma.reservation.findMany({
                 include: { user: true, event: true },
             });
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+
+    public async deleteReservation(id: string): Promise<void> {
+        try {
+            await this.prisma.reservation.delete({ where: { id } });
         } catch (error: any) {
             throw new Error(error.message);
         }

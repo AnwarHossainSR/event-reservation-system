@@ -1,4 +1,4 @@
-import token from '@/utils/token';
+import token from '../../utils/token';
 import { Prisma, PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 

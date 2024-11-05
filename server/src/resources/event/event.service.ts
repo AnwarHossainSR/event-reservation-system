@@ -5,11 +5,9 @@ class EventService {
 
     public async createEvent(data: Prisma.EventCreateInput): Promise<any> {
         try {
-            // Assuming startDate and endDate are the same for a single-day event
-            const startDate = data.startDate; // using the provided date as startDate
-            const endDate = data.endDate; // using the provided date as endDate
+            const startDate = data.startDate;
+            const endDate = data.endDate;
 
-            // Check for overlapping events based on startDate, endDate, and venue
             const overlapEvent = await this.prisma.event.findFirst({
                 where: {
                     venue: data.venue,
