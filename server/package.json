@@ -9,10 +9,10 @@
         "npm": "please-use-yarn"
     },
     "scripts": {
-        "start": "node dist/index.js",
-        "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
+        "start": "node dist/src/index.js",
+        "dev": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
         "build": "tsc",
-        "postinstall": "npm run build",
+        "postinstall": "npm run build && npx prisma generate && npx prisma migrate",
         "prepare": "husky install && yarn run seed",
         "eslint": "eslint --fix src",
         "prettier": "prettier --write .",
