@@ -16,7 +16,8 @@
         "prepare": "husky install",
         "eslint": "eslint --fix src",
         "prettier": "prettier --write .",
-        "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore"
+        "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
+        "test": "npx jest"
     },
     "lint-staged": {
         "*.{md,ts,tsx}": "yarn prettier",
