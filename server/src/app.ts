@@ -1,11 +1,11 @@
-import ErrorMiddleware from '@/middleware/error.middleware';
-import Controller from '@/utils/interfaces/controller.interface';
 import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import ErrorMiddleware from './middleware/error.middleware';
 import swaggerDocs from './swagger/swagger';
+import Controller from './utils/interfaces/controller.interface';
 
 class App {
     public express: Application;

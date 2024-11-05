@@ -1,10 +1,10 @@
-import adminMiddleware from '@/middleware/admin.middleware';
-import authenticated from '@/middleware/authenticated.middleware';
-import validationMiddleware from '@/middleware/validation.middleware';
-import ReservationService from '@/resources/reservation/reservation.service';
-import validate from '@/resources/reservation/reservation.validation';
-import HttpException from '@/utils/exceptions/http.exception';
-import Controller from '@/utils/interfaces/controller.interface';
+import adminMiddleware from '../../middleware/admin.middleware';
+import authenticated from '../../middleware/authenticated.middleware';
+import validationMiddleware from '../../middleware/validation.middleware';
+import ReservationService from '../../resources/reservation/reservation.service';
+import validate from '../../resources/reservation/reservation.validation';
+import HttpException from '../../utils/exceptions/http.exception';
+import Controller from '../../utils/interfaces/controller.interface';
 import { NextFunction, Request, Response, Router } from 'express';
 
 class ReservationController implements Controller {

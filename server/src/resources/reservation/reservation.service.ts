@@ -1,4 +1,4 @@
-import HttpException from '@/utils/exceptions/http.exception';
+import HttpException from '../../utils/exceptions/http.exception';
 import { PrismaClient, Reservation } from '@prisma/client';
 
 class ReservationService {

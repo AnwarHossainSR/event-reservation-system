@@ -1,4 +1,4 @@
-import HttpException from '@/utils/exceptions/http.exception';
+import HttpException from '../utils/exceptions/http.exception';
 import { NextFunction, Request, Response } from 'express';
 
 // Admin middleware that assumes authenticatedMiddleware has already been applied

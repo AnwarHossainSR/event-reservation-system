@@ -1,9 +1,9 @@
-import authenticated from '@/middleware/authenticated.middleware';
-import validationMiddleware from '@/middleware/validation.middleware';
-import UserService from '@/resources/user/user.service';
-import validate from '@/resources/user/user.validation';
-import HttpException from '@/utils/exceptions/http.exception';
-import Controller from '@/utils/interfaces/controller.interface';
+import authenticated from '../../middleware/authenticated.middleware';
+import validationMiddleware from '../../middleware/validation.middleware';
+import UserService from '../../resources/user/user.service';
+import validate from '../../resources/user/user.validation';
+import HttpException from '../../utils/exceptions/http.exception';
+import Controller from '../../utils/interfaces/controller.interface';
 import { NextFunction, Request, Response, Router } from 'express';
 
 class UserController implements Controller {
