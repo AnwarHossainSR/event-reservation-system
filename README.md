@@ -5,12 +5,96 @@ This project consists of a client and server application, running with a Postgre
 
 ## Prerequisites
 
-- **Node.js**: Make sure you have Node.js version **20.18.0** installed on your machine.
+- **Node.js**: Make sure you have Node.js version **20.18.0** installed on your machine Or just need to install docker. Here you can run the app by docker or without docker both.
 - **Docker**: Ensure that Docker is installed and running on your machine.
 - **Docker Compose**: Install Docker Compose using your preferred package manager.
 ```
 
-## Project Setup
+## Project Setup with Docker
+
+### Step 1: Clone the Repository
+
+First, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/AnwarHossainSR/event-reservation-system.git
+cd event-reservation-system
+```
+
+### Step 2: Navigate to the Server and Client Folders
+
+You will find two folders in the cloned repository: `server` and `client`.
+
+1. **Update .env file from server folder**:
+
+   ```bash
+   DATABASE_URL="postgresql://postgres:postgres@host.docker.internal:5433/event_reservation"
+   NODE_ENV="development"
+   PORT=4000
+   JWT_SECRET="mdsfg$6gdf^dhfhd3gdfs453hds$hdsfh#hdgfh%fhdf_dsgfdshf^4543djfg"
+   DEFAULT_SENDER_EMAIL='event-reservation@example.com'
+   SMTP_HOST="mailhog"
+   SMTP_PORT='1025'
+
+   ```
+
+2. **Run Docker**:
+
+   ```bash
+   cd event-reservation-system # Navigate to the repository root
+   docker-compose up --build -d # Run the Docker Compose services in the background
+
+   ```
+
+3. **Use Following command one by one for database migrate and seed for admin user and normal user from root directory**:
+
+   ```bash
+   docker ps # Check the running containers
+
+   You just need to copy the container id of the postgres container
+   ```
+
+   ```bash
+   docker inspect {postgres_container_id_here_what_you_copied} | grep IPAddress
+   ```
+
+   ```bash
+   docker-compose exec backend npx prisma generate
+   ```
+
+   ```bash
+   docker-compose exec backend npx prisma migrate dev --name dev
+   ```
+
+   ```bash
+   docker-compose exec backend yarn seed
+   ```
+
+4. **Run Server , client, pgadmin and mailhog on bellow url**:
+
+   ```bash
+   Swagger docs (api) : http://localhost:4000/api-docs
+   Client: http://localhost:3000
+   PgAdmin: http://localhost:5050
+   MailHog: http://localhost:8025
+
+   ```
+
+5. **Login with the credentials of admin and user**:
+
+   ```bash
+   admin creadentials
+   email: admin@admin.com
+   password: 123456
+   ```
+
+   ```bash
+   user creadentials
+   email: user@user.com
+   password: 123456
+   ```
+
+## Project Setup without Docker
 
 ### Step 1: Clone the Repository
 
@@ -65,25 +149,34 @@ yarn install
 
 Before starting the application, you need to set up the required services using Docker.
 
-Once the `docker-compose.yml` file is ready, run the following command to start the services. it will run postgres, pgadmin and mailhog.
+Once the `without-docker-compose.yml` file is ready, run the following command to start the services. it will run postgres, pgadmin and mailhog.
 
 ```bash
-docker-compose up -d
+docker-compose -f without-docker-compose.yml up --build -d
 
 ```
 
-### Step 5: Migrate the Database
+### Step 5: Generate prisma
 
-After starting the Docker services, run the following command to migrate the database using Prisma:
+Run the following command to generate the Prisma schema from server folder.
 
 ```bash
-npx prisma migrate dev --name init
+npx prisma generate
+
+```
+
+### Step 6: Migrate the Database
+
+After starting the Docker services, run the following command to migrate the database using Prisma from server folder.:
+
+```bash
+npx prisma migrate dev --name dev
 
 ```
 
 This command will apply any pending migrations to your database. You can replace `init` with a more descriptive name for your migration if necessary.
 
-### Step 6: Start the Application
+### Step 7: Start the Application
 
 After ensuring that Docker services are running and the database is migrated, navigate back to the `server` and `client` folders and run the following command in each folder:
 

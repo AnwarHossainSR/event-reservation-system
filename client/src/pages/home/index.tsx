@@ -28,6 +28,9 @@ const Home = () => {
             events.map((event: Event) => (
               <EventItem key={event.id} event={event} />
             ))}
+          {events.length === 0 && (
+            <p className="text-center text-3xl font-bold">No events found</p>
+          )}
         </div>
       </div>
     </section>
