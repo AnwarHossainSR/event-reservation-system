@@ -178,6 +178,16 @@ npx prisma migrate dev --name dev
 
 ```
 
+```bash
+yarn run build
+
+```
+
+```bash
+yarn run seed
+
+```
+
 This command will apply any pending migrations to your database. You can replace `init` with a more descriptive name for your migration if necessary.
 
 ### Step 7: Start the Application
