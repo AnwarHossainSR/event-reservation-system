@@ -10,6 +10,13 @@ This project consists of a client and server application, running with a Postgre
 - **Docker Compose**: Install Docker Compose using your preferred package manager.
 ```
 
+## Deployed Production App Url (AWS)
+
+Backend: http://52.77.247.52:4000/api-docs
+Frontend: http://3.0.50.132:3000/
+Mail Server: Didn't deployed yet
+
+
 ## Project Setup with Docker
 
 ### Step 1: Clone the Repository
