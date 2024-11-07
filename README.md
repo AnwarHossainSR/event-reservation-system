@@ -14,7 +14,7 @@ This project consists of a client and server application, running with a Postgre
 
 ### Backend: http://52.77.247.52:4000/api-docs
 ### Frontend: http://3.0.50.132:3000/
-### Mail Server: Didn't deployed yet
+### Mail Server: http://54.179.17.121:8025/
 
 
 
