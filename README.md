@@ -67,7 +67,11 @@ You will find two folders in the cloned repository: `server` and `client`.
    ```
 
    ```bash
-   docker-compose exec backend yarn seed
+   docker-compose exec backend yarn run seed
+   ```
+
+    ```bash
+   docker-compose exec backend yarn run build
    ```
 
 4. **Run Server , client, pgadmin and mailhog on bellow url**:
