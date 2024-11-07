@@ -12,9 +12,9 @@ This project consists of a client and server application, running with a Postgre
 
 ## Deployed Production App Url (AWS)
 
-Backend: http://52.77.247.52:4000/api-docs
-Frontend: http://3.0.50.132:3000/
-Mail Server: Didn't deployed yet
+###Backend: http://52.77.247.52:4000/api-docs
+###Frontend: http://3.0.50.132:3000/
+###Mail Server: Didn't deployed yet
 
 
 ## Project Setup with Docker
