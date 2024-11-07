@@ -17,6 +17,10 @@ This project consists of a client and server application, running with a Postgre
 ### Mail Server: Didn't deployed yet
 
 
+
+
+
+
 ## Project Setup with Docker
 
 ### Step 1: Clone the Repository
